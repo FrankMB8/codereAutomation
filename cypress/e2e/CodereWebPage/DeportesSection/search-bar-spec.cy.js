@@ -76,6 +76,9 @@ it('Search Bar testing', () => {
     searchAndSelect('resultsEspania', '2')
     deleteSearch()
 
+    cy.searching('portugal', serchIcon + ionInput)
+    deleteSearch()
+
 
 
 })
