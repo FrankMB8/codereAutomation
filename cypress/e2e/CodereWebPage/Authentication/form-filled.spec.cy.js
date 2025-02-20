@@ -29,7 +29,7 @@ const nameForm = 'Nombre'
 const primerApellido = 'Primer Apellido'
 const segundoApellido = 'Segundo Apellido'
 const anio = 'Año'
-const dni = 'NIE'
+const dniOrNie = 'NIE'
 const direccion = 'Dirección'
 const codPostal = 'Código Postal'
 const movil = 'Móvil'
@@ -49,6 +49,8 @@ const flotaing = '.floating'
 //EndRegister Buttons
 const confirm = '#confirm'// Button for accept the therm and conditions
 const endRegister = '#endRegister'
+//Scroll button
+const scrollBttn = '.scroll-content'
 
 
 beforeEach(() => {
@@ -89,27 +91,42 @@ describe('Filling the form', () => {
         cy.get(labelText + flotaing + greenText).eq(0).contains('Residencia').should('be.visible').and('have.css', 'color', 'rgb(121, 192, 0)')
 
         // Personal information
-        cy.fillIn(dni, '25625745', 4)
+        cy.fillIn(dniOrNie, 'Z1756473Z', 4)
         //**Assertion for: profesion
         cy.get(labelText + flotaing + green).eq(0).contains('Profesión').should('be.visible').and('have.css', 'color', 'rgb(121, 192, 0)')
-        //CONTINUE*****
-        // cy.get(lblTxt + ionInpt).eq(3).contains(anio).should('be.visible').and('have.css', 'color', 'rgb(121, 192, 0)')
 
         cy.fillIn(direccion, 'Independencia 466', 5)
+        //**Assertion for: DNI or NIE
+        //SCroll down for do the assertion
+        cy.get(scrollBttn).scrollTo('bottom')
+        cy.get(lblTxt + ionInpt).eq(4).contains(dniOrNie).should('be.visible').and('have.css', 'color', 'rgb(121, 192, 0)')
+
         cy.fillIn(codPostal, '30008', 6)
+        //**Assertion for: Dirección
+        cy.get(lblTxt + ionInpt).eq(5).contains(direccion).should('be.visible').and('have.css', 'color', 'rgb(121, 192, 0)')
+
         cy.fillIn(movil, '670760898', 7)
+        //**Assertion for: Código postal
+        cy.get(lblTxt + ionInpt).eq(6).contains(codPostal).should('be.visible').and('have.css', 'color', 'rgb(121, 192, 0)')
 
         //User Data
         cy.fillIn(Email, 'Fmarcano038@gmail.com', 8)
-        cy.fillIn(user, 'FrankieElLoco', 9)
-        cy.fillIn(passw, 'Cypress$', 10)
-        cy.get(confirm).click()
-        cy.get(endRegister)
+        //**Assertion for: Móvil
+        cy.get(lblTxt + ionInpt).eq(7).contains(movil).should('be.visible').and('have.css', 'color', 'rgb(121, 192, 0)')
 
-        /*Things to do:
-        1- the asertions from every field
-        2- verify the letters which are typed just for an example
-        3- 
-        */
+        cy.fillIn(user, 'FrankieElLoco', 9)
+        //**Assertion for: Email
+        cy.get(lblTxt + ionInpt).eq(8).contains(Email).should('be.visible').and('have.css', 'color', 'rgb(121, 192, 0)')
+
+        cy.fillIn(passw, 'Cypress5$$', 10)
+        //**Assertion for: User
+        cy.get(lblTxt + ionInpt).eq(9).contains(user).should('be.visible').and('have.css', 'color', 'rgb(121, 192, 0)')
+
+        cy.get(confirm).click()
+
+        //**Assertion for: Password
+        cy.get(lblTxt + ionInpt).eq(10).contains(passw).should('be.visible').and('have.css', 'color', 'rgb(121, 192, 0)')
+
+        cy.get(endRegister)
     })
 })
